@@ -4,18 +4,21 @@ import java.util.Arrays;
 
 /**
  * @author Florence
+ * 1
  */
 public class Week2 {
     public static void main(String[] args) {
-//        System.out.println(Arrays.toString(shuffleCardsPUTONGREN(getNewCards(52))));
         long startTime=System.currentTimeMillis();
-        //do something
 //        houseRideLightOneDimension(getOneDimensionNumArr(100),8);
-//        houseRideLightTwoDimension(getTwoDimensionNumArr(4),2,4);
-        int[][][] a  = getThreeDimensionNumArr(3);
-        int[][][] b =getThreeDimensionNumArr(3);
-        fixZround(a,b,2);
-        showThreeDimension(a);
+        houseRideLightTwoDimension(getTwoDimensionNumArr(0,11),7,11);
+//        houseRideLightThreeDimension(1,1,1,2);
+//        shuffleCardsDUSHEN(getNewCards(52));
+//        shuffleCardsHEGUAN(getNewCards(52));
+//        shuffleCardsPUTONGREN(getNewCards(52));
+//        Integer[] test= getNewCards(52);
+//        System.out.println("inverseBefore:"+Arrays.toString(test));
+//        inverseArr(test);
+//        System.out.println("inverseAfter:"+Arrays.toString(test));
         long endTime=System.currentTimeMillis();
         System.out.println("run time : "+(endTime-startTime)+"ms");
     }
@@ -32,8 +35,10 @@ public class Week2 {
         int[] tempArr = new int[arrLength];
         do {
             for (int i = 0; i < arrLength; i++) {
+                //循坏跳转表达式
                 tempArr[(i + step) % arrLength] = arr[i];
             }
+            //每次跳转完一次保存跳完的结果，然后再迭代
             System.arraycopy(tempArr, 0, arr, 0, arrLength);
             count++;
             System.out.println(Arrays.toString(arr));
@@ -51,7 +56,7 @@ public class Week2 {
         int[][] tempArr = new int[n][n];
         copyArrTwoDimension(arr,tempArr);
         int count=0;
-        for (int i=0;i<(n/2)-1;i++){
+        for (int i=0;i<(n/2)-step/2;i++){
             int firstElement=arr[i][i];
             do {
                 rowForWardOrBackWard(i, i, true, step, arr, tempArr,"down",i);
@@ -70,6 +75,8 @@ public class Week2 {
             System.out.println("第"+(i+1)+"圈完成");
         }
         System.out.println("总共旋转："+count+"次");
+        System.out.println("跑马灯完成：");
+        showTwoDimensionArr(arr);
     }
 
     /**
@@ -174,7 +181,7 @@ public class Week2 {
     }
 
     /**
-     * 三维跑马灯
+     * 三维跑马灯,固定那个轴，哪个轴相应的坐标就是一定不变的
      * @param x 固定x轴转yoz平面几次
      * @param y 固定y轴转xoz平面几次
      * @param z 固定z轴转xoy平面几次
@@ -182,51 +189,119 @@ public class Week2 {
     public static void houseRideLightThreeDimension(int x,int y,int z,int step){
         int[][][] resultArr= getThreeDimensionNumArr(3);
         int[][][] tempArr=getThreeDimensionNumArr(3);
-        int tempValue;
         //xoy: resultArr[0] yoz :resultArr[?][0][?]   xoz:resultArr[?][?][0]
         //固定x轴的就是yoz面
         for (int i=0;i<x;i++){
                 fixXround(tempArr,resultArr,step);
+                copyArrThreeDimension(tempArr,resultArr);
         }
         //固定y轴就是xoz平面
         for(int i=0;i<y;i++){
                 fixYround(tempArr,resultArr,step);
+                copyArrThreeDimension(tempArr,resultArr);
         }
         //固定z轴就是xoy平面
         for (int i=0;i<z;i++){
                 fixZround(tempArr,resultArr,step);
+                copyArrThreeDimension(tempArr,resultArr);
         }
+        showThreeDimension(resultArr);
     }
-
+    /**
+     * 固定Y旋转
+     * @param tempArr 暂时的数组
+     * @param resultArr 结果数组
+     * @param step 步长
+     */
     private static void fixYround(int[][][] tempArr, int[][][] resultArr, int step) {
+        //向右
         for (int i=0;i<3;i++){
-
+            if (i+step<3){
+                tempArr[0][i+step][0]=resultArr[0][i][0];
+            }
+            else{
+                int gap=i+step-3+1;
+                tempArr[0+gap][2][0]=resultArr[0][i][0];
+            }
         }
+        //向下
         for (int i=0;i<3;i++){
-
+            if (i+step<3){
+                tempArr[i+step][2][0]=resultArr[i][2][0];
+            }
+            else{
+                int gap=i+step-3+1;
+                tempArr[2][2-gap][0]=resultArr[i][2][0];
+            }
         }
-        for (int i=0;i<3;i++){
-
+        //向左
+        for (int i=2;i>=0;i--){
+            if(i-step>=0){
+                tempArr[2][i-step][0]=resultArr[2][i][0];
+            }
+            else{
+                int gap=step-i;
+                tempArr[2-gap][0][0]=resultArr[2][i][0];
+            }
         }
-        for (int i=0;i<3;i++){
-
+        //向上
+        for (int i=2;i>=0;i--){
+            if (i-step>=0){
+                tempArr[i-step][0][0]=resultArr[i][0][0];
+            }
+            else {
+                int gap=step-i;
+                tempArr[0][0+gap][0]=resultArr[i][0][0];
+            }
         }
     }
-
+    /**
+     * 固定X旋转
+     * @param tempArr 暂时的数组
+     * @param resultArr 结果数组
+     * @param step 步长
+     */
     private static void fixXround(int[][][] tempArr, int[][][] resultArr, int step) {
+        //向右
         for (int i=0;i<3;i++){
-
+            if (i+step<3){
+                tempArr[0][0][i+step]=resultArr[0][0][i];
+            }
+            else{
+                int gap=i+step-3+1;
+                tempArr[0+gap][0][2]=resultArr[0][0][i];
+            }
         }
+        //向下
         for (int i=0;i<3;i++){
-
+            if (i+step<3){
+                tempArr[i+step][0][2]=resultArr[i][0][2];
+            }
+            else{
+                int gap=i+step-3+1;
+                tempArr[2][0][2-gap]=resultArr[i][0][2];
+            }
         }
-        for (int i=0;i<3;i++){
-
+        //向左
+        for (int i=2;i>=0;i--){
+            if(i-step>=0){
+                tempArr[2][0][i-step]=resultArr[2][0][i];
+            }
+            else{
+                int gap=step-i;
+                tempArr[2-gap][0][0]=resultArr[2][0][i];
+            }
         }
-        for (int i=0;i<3;i++){
-
+        //向上
+        for (int i=2;i>=0;i--){
+            if (i-step>=0){
+                tempArr[i-step][0][0]=resultArr[i][0][0];
+            }
+            else {
+                int gap=step-i;
+                tempArr[0][0][0+gap]=resultArr[i][0][0];
+            }
         }
-
     }
 
     /**
@@ -294,7 +369,8 @@ public class Week2 {
     /**
      * 获取二维数组
      * @param n 要的大小
-     * @return
+     * @param begin 二维数组开始的值
+     * @return 获取到的二维数组
      */
     public static int[][] getTwoDimensionNumArr(int begin,int n){
         int[][] arr = new int[n][n];
@@ -306,7 +382,7 @@ public class Week2 {
 
     /**
      * 获取三维数组 n*n*n
-     * @param n
+     * @param n 二维数组的大小
      * @return 获取到的三维数组
      */
     public static int[][][] getThreeDimensionNumArr(int n){
@@ -354,11 +430,13 @@ public class Week2 {
     public static Integer[] shuffleCardsDUSHEN(Integer[] arr){
         int gap=arr.length/2;
         int pointer=0;
+        System.out.println("赌神洗牌前："+Arrays.toString(arr));
         Integer[] result = new Integer[arr.length];
         for (int i=arr.length/2;i<arr.length;i++){
             result[pointer++]=arr[i];
             result[pointer++]=arr[i-gap];
         }
+        System.out.println("赌神洗牌后："+Arrays.toString(result));
         return result;
     }
 
@@ -372,6 +450,8 @@ public class Week2 {
         System.out.println("分割点为下标为："+midPointer);
         int divideBit=midPointer;
         int leftPointer=0,pointer=0;
+        System.out.println("荷官洗牌前："+Arrays.toString(arr));
+
         Integer[] resultArr =new Integer[arr.length];
         while(leftPointer<divideBit&&midPointer<arr.length){
             resultArr[pointer++]=arr[leftPointer++];
@@ -381,6 +461,7 @@ public class Week2 {
         for (int i=remindStartPoint;pointer<arr.length;i++){
             resultArr[pointer++]=arr[i];
         }
+        System.out.println("荷官洗牌后："+Arrays.toString(resultArr));
         return resultArr;
     }
 
@@ -390,23 +471,31 @@ public class Week2 {
      * @return 洗完排后的数组地址
      */
     public static Integer[] shuffleCardsPUTONGREN(Integer[] arr){
+        //切牌点误差-10~10
         int dividePosition=arr.length/2+getRandomNum(-10,10);
         int leftPointer=0,midPointer=dividePosition;
         int pointer=0;
+        System.out.println("手残洗牌前："+Arrays.toString(arr));
         Integer[] resultArr = new Integer[arr.length];
         System.out.println("分割点为下标为："+midPointer);
         while (leftPointer<dividePosition&&midPointer<arr.length){
+            //左边随机下牌0~5
             for (int i=0;leftPointer<dividePosition&&i<getRandomNum(0,5);i++){
                 resultArr[pointer++]=arr[leftPointer++];
             }
+            //右边随机下牌0~5
             for (int i=0;midPointer<arr.length&&i<getRandomNum(0,5);i++){
                 resultArr[pointer++]=arr[midPointer++];
             }
         }
+        //判断最后一部分
         int remindStartPoint=leftPointer==dividePosition?midPointer:leftPointer;
+        //添加到最后面
         for (int i=remindStartPoint;pointer<arr.length;i++){
             resultArr[pointer++]=arr[i];
         }
+        //输出结果
+        System.out.println("手残洗牌后："+Arrays.toString(resultArr));
         return resultArr;
     }
 
