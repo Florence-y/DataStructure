@@ -94,6 +94,13 @@ public class FlorenceUntil {
             showTwoDimensionArr(subArr);
         }
     }
+
+    /**
+     * 深复制一个二维数组
+     * @param sourceArr 源数组
+     * @param wantToCopyArr 想要复制到的数组
+     * @return 复制完成的数组
+     */
     public static int[][] copyArrTwoDimension(int[][] sourceArr,int[][] wantToCopyArr){
         for (int i=0;i<sourceArr.length;i++){
             System.arraycopy(sourceArr[i],0,wantToCopyArr[i],0,sourceArr[i].length);

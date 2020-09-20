@@ -175,9 +175,9 @@ public class Week2 {
 
     /**
      * 三维跑马灯
-     * @param x
-     * @param y
-     * @param z
+     * @param x 固定x轴转yoz平面几次
+     * @param y 固定y轴转xoz平面几次
+     * @param z 固定z轴转xoy平面几次
      */
     public static void houseRideLightThreeDimension(int x,int y,int z,int step){
         int[][][] resultArr= getThreeDimensionNumArr(3);
@@ -186,22 +186,47 @@ public class Week2 {
         //xoy: resultArr[0] yoz :resultArr[?][0][?]   xoz:resultArr[?][?][0]
         //固定x轴的就是yoz面
         for (int i=0;i<x;i++){
-            for (int j=0;j<4;j++){
-//                fixXround(tempArr,resultArr,step);
-            }
+                fixXround(tempArr,resultArr,step);
         }
         //固定y轴就是xoz平面
         for(int i=0;i<y;i++){
-            for (int j=0;j<4;j++){
-//                fixYround(tempArr,resultArr,step);
-            }
+                fixYround(tempArr,resultArr,step);
         }
         //固定z轴就是xoy平面
         for (int i=0;i<z;i++){
-            for (int j=0;j<4;j++){
                 fixZround(tempArr,resultArr,step);
-            }
         }
+    }
+
+    private static void fixYround(int[][][] tempArr, int[][][] resultArr, int step) {
+        for (int i=0;i<3;i++){
+
+        }
+        for (int i=0;i<3;i++){
+
+        }
+        for (int i=0;i<3;i++){
+
+        }
+        for (int i=0;i<3;i++){
+
+        }
+    }
+
+    private static void fixXround(int[][][] tempArr, int[][][] resultArr, int step) {
+        for (int i=0;i<3;i++){
+
+        }
+        for (int i=0;i<3;i++){
+
+        }
+        for (int i=0;i<3;i++){
+
+        }
+        for (int i=0;i<3;i++){
+
+        }
+
     }
 
     /**
