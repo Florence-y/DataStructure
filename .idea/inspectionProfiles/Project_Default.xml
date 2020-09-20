@@ -3,7 +3,11 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
+<<<<<<< HEAD
         <language minSize="54" name="Java" />
+=======
+        <language minSize="49" name="Java" />
+>>>>>>> 213f829ad00bb6cf477be4f4bbfd86f6595bbf95
       </Languages>
     </inspection_tool>
     <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="true">
