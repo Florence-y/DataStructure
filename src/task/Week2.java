@@ -10,7 +10,7 @@ public class Week2 {
     public static void main(String[] args) {
         long startTime=System.currentTimeMillis();
 //        houseRideLightOneDimension(getOneDimensionNumArr(100),8);
-        houseRideLightTwoDimension(getTwoDimensionNumArr(0,11),7,11);
+//        houseRideLightTwoDimension(getTwoDimensionNumArr(0,11),7,11);
 //        houseRideLightThreeDimension(1,1,1,2);
 //        shuffleCardsDUSHEN(getNewCards(52));
 //        shuffleCardsHEGUAN(getNewCards(52));
