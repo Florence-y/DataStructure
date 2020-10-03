@@ -10,7 +10,7 @@ public class Week2 {
     public static void main(String[] args) {
         long startTime=System.currentTimeMillis();
 //        houseRideLightOneDimension(getOneDimensionNumArr(100),8);
-//        houseRideLightTwoDimension(getTwoDimensionNumArr(0,11),7,11);
+        houseRideLightTwoDimension(getTwoDimensionNumArr(0,5),2,5);
 //        houseRideLightThreeDimension(1,1,1,2);
 //        shuffleCardsDUSHEN(getNewCards(52));
 //        shuffleCardsHEGUAN(getNewCards(52));
@@ -55,6 +55,7 @@ public class Week2 {
     public static void houseRideLightTwoDimension(int[][] arr,int step,int n){
         int[][] tempArr = new int[n][n];
         copyArrTwoDimension(arr,tempArr);
+        showTwoDimensionArr(arr);
         int count=0;
         for (int i=0;i<(n/2)-step/2;i++){
             int firstElement=arr[i][i];

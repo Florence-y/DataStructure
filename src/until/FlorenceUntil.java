@@ -1,6 +1,8 @@
 package until;
 
 
+import implDataStruce.Node;
+
 import java.util.Arrays;
 
 /**
@@ -141,5 +143,31 @@ public class FlorenceUntil {
             right--;
         }
         return object;
+    }
+    /**
+     * 获取一个整数数组
+     * @param n 要获取数组的大小
+     * @return 获取到的数组
+     */
+    public static Integer[] getIntegerArr(int n){
+        Integer[] arr = new Integer[n];
+        for (int i=0;i<n;i++){
+            arr[i]= i + 1;
+        }
+        return arr;
+    }
+    /**
+     * 正序递归遍历
+     * @param head 头指针
+     * @param <T> 泛型参数
+     */
+    public static <T> void showListBeforeRecursion(Node<T> head){
+        if (head==null){
+            return;
+        }
+        if (head.data!=null){
+            System.out.println(head.data);
+        }
+        showListBeforeRecursion(head.next);
     }
 }

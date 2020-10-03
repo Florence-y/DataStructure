@@ -1,5 +1,7 @@
 package task;
 
+import implDataStruce.Node;
+
 /**
  * @author Florence
  */
@@ -12,20 +14,7 @@ public class Week3 {
         System.out.println("run time : "+(endTime-startTime)+"ms");
     }
 
-    /**
-     * 节点类
-     * @param <T>
-     */
-    static class Node<T>{
-        T data;
-        Node<T> next=null;
-        Node(T data){
-            this.data=data;
-        }
-        Node(){
 
-        }
-    }
 
     /**
      * 获取一个链表
