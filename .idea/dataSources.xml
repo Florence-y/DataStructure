@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/blog</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="university_mutual_platform@localhost" uuid="58a3a4c7-1775-4e9b-909f-f88f69b9ab0d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/university_mutual_platform</jdbc-url>
+    </data-source>
   </component>
 </project>
