@@ -3,6 +3,10 @@ package until;
 
 import implDataStruce.Node;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -169,5 +173,25 @@ public class FlorenceUntil {
             System.out.println(head.data);
         }
         showListBeforeRecursion(head.next);
+    }
+
+    /**
+     * 获取随机数   [bottomBound,topBound]
+     * @param bottomBound 下界
+     * @param topBound 上界
+     * @return 获取到的随机数
+     */
+    public static int getRandomNum(int bottomBound, int topBound){
+        int c=topBound-bottomBound+1;
+        double x=Math.random()*c;
+        int y=(int)x;
+        return y+bottomBound;
+    }
+    public static BufferedOutputStream getOutFromFile(String filePath, String fileName) throws IOException {
+        File file = new File(filePath+"\\"+fileName);
+        if (!file.exists()){
+            file.createNewFile();
+        }
+        return new BufferedOutputStream(new FileOutputStream(file));
     }
 }

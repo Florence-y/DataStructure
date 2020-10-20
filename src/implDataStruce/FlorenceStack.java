@@ -1,10 +1,14 @@
 package implDataStruce;
 
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
+
 /**
  * @author Florence
  */
-public class FlorenceStack<T> {
-    T top;
+public class FlorenceStack<T> implements Iterable<T>{
+    T top=null;
     int size=0;
     Node<T> head=new Node<>();
 
@@ -31,16 +35,23 @@ public class FlorenceStack<T> {
         }
         T data =head.next.data;
         head.next=head.next.next;
-        top=head.next.next.data;
         size--;
+        if (size!=0) {
+            top = head.next.data;
+        }
+        else {
+            top=null;
+        }
         return data;
     }
-
+    public int size(){
+        return size;
+    }
     /**
      * 是否为空
      * @return 布尔值 如果为空就是true 如果不为空就是false
      */
-    public boolean isExist(){
+    public boolean isEmpty(){
         return size==0;
     }
 
@@ -50,5 +61,26 @@ public class FlorenceStack<T> {
      */
     public T top(){
         return top;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new FlorenceStackIterator();
+    }
+
+
+    class FlorenceStackIterator implements Iterator<T>{
+        Node<T> tempNode=head.next;
+        @Override
+        public boolean hasNext() {
+            return tempNode!=null;
+        }
+
+        @Override
+        public T next() {
+            T data =tempNode.data;
+            tempNode=tempNode.next;
+            return data;
+        }
     }
 }
