@@ -15,21 +15,6 @@ import static until.FlorenceUntil.showListBeforeRecursion;
  * @author Florence
  */
 public class Week4 {
-    static class BitNode {
-        public double bitVal;
-        public int bitPower;
-        public BitNode next = null;
-
-        public BitNode(double val, int power) {
-            bitVal = val;
-            bitPower = power;
-        }
-
-        public BitNode() {
-
-        }
-    }
-
     public static void main(String[] args) {
         Integer[] test = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
         Node<Integer> rightOrderList = List.getRightOrderList(test);
@@ -326,5 +311,20 @@ public class Week4 {
             temp = temp.next;
         }
         return head;
+    }
+
+    static class BitNode {
+        public double bitVal;
+        public int bitPower;
+        public BitNode next = null;
+
+        public BitNode(double val, int power) {
+            bitVal = val;
+            bitPower = power;
+        }
+
+        public BitNode() {
+
+        }
     }
 }
