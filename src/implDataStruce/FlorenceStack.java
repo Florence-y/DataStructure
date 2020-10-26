@@ -87,4 +87,14 @@ public class FlorenceStack<T> implements Iterable<T> {
             return data;
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        Iterator<T> iterator = iterator();
+        while (iterator.hasNext()){
+            stringBuilder.append(iterator.next());
+        }
+        return stringBuilder.toString();
+    }
 }

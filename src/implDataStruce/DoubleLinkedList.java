@@ -6,7 +6,14 @@ package implDataStruce;
  */
 public class DoubleLinkedList<T> {
     Node<T> node = new Node<>(null);
+    class Node<T> {
+        Node<T> pre;
+        Node<T> next;
+        T data;
 
+        public Node(Object o) {
+        }
+    }
     public void addNodeInPre(Node<T> cur, Node<T> wantToAdd) {
         if (cur == node || cur == null) {
             System.out.println("节点是头节点或者不存在");
@@ -59,12 +66,5 @@ public class DoubleLinkedList<T> {
         return cur.data;
     }
 
-    class Node<T> {
-        Node<T> pre;
-        Node<T> next;
-        T data;
 
-        public Node(Object o) {
-        }
-    }
 }

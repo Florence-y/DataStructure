@@ -215,4 +215,24 @@ public class FlorenceUntil {
         }
         return new BufferedOutputStream(new FileOutputStream(file));
     }
+    /**
+     * 获取阶乘
+     * @param  n 要获取的阶乘数目
+     * @return 得到的阶乘数
+     */
+    public static double getFactorial(long n) {
+        double sum = 1;
+        for (int i = 2; i <= n; i++) {
+            sum *= i;
+        }
+        return sum;
+    }
+    public static double log2(double N) {
+        //Math.log的底为e
+        return Math.log(N)/Math.log(2);
+    }
+    public boolean isPowerOfTwo(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+
 }

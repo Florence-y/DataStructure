@@ -28,15 +28,20 @@ public class FlorenceQueue<E> implements Iterable<E>{
      * 链头出队
      * @return
      */
-    public E deQueue() throws Exception {
+    public E deQueue(){
         if (size!=0){
             Node<E> dequeueNode = head.getNext();
             E data=dequeueNode.getData();
             head.setNext(dequeueNode.getNext());
             size--;
+            if (size==0){
+                tail=head;
+            }
             return data;
         }
-        throw new Exception("出队错误");
+        else {
+            return null;
+        }
     }
 
     public E front(){
@@ -66,5 +71,15 @@ public class FlorenceQueue<E> implements Iterable<E>{
                 return data;
             }
         };
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        Iterator<E> iterator = iterator();
+        while (iterator.hasNext()){
+            stringBuilder.append(iterator.next());
+        }
+        return stringBuilder.toString();
     }
 }

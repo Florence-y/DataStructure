@@ -22,10 +22,7 @@ public class testStack {
 //        for (Integer integer:florenceQueue){
 //            System.out.println(integer);
 //        }
-        while (!florenceQueue.isEmpty()){
-            System.out.println(florenceQueue.size());
-            System.out.println(florenceQueue.deQueue());
-        }
+        System.out.println(florenceQueue);
     }
 
 }
