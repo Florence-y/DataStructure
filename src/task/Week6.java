@@ -4,7 +4,10 @@ import implDataStruce.FlorenceStack;
 import implDataStruce.Node;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
+
+import static until.FlorenceUntil.getPermutationIntByLength;
 
 
 /**
@@ -31,10 +34,14 @@ public class Week6 {
 //        generatePermutation(5);
 //        isMatch("{{{{{{{{}}}}}}[][][][][]]");
 //          judgeAllPermutationIsFix(5);
-//        System.out.println(isPalindromeByStack("aacscana"));
-        long calculator = calculator("(3-2)+5+(4*3)");
-        System.out.println(calculator);
-
+////        System.out.println(isPalindromeByStack("aacscana"));
+//        long calculator = calculator("(3-2)+5+(4*3)");
+//        System.out.println(calculator);
+//        permutationByList(4);
+        List<int[]> permutationIntByLength = getPermutationIntByLength(4);
+        for (int[] arr:permutationIntByLength){
+            System.out.println(Arrays.toString(arr));
+        }
     }
 
     /**

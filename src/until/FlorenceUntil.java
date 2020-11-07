@@ -1,14 +1,16 @@
 package until;
 
 
+import implDataStruce.List;
 import implDataStruce.Node;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.LinkedList;
 /**
  * @author Florence
  */
@@ -235,4 +237,63 @@ public class FlorenceUntil {
         return n > 0 && (n & (n - 1)) == 0;
     }
 
+    /**
+     * 计算满二叉树的层数
+     * @param length
+     * @return
+     */
+    public int getBinaryTreeHeight(int length){
+        int rowCount= (int) (isPowerOfTwo(length)?log2(length):Math.ceil(log2(length)));
+        return rowCount;
+    }
+
+    /**
+     * 全排列（类链表形式）
+     * @param length 操作的长度
+     */
+    public static void permutationByList(java.util.List<int[]> permutationArrList,int length) {
+        Integer[] integerArr = getIntegerArr(length);
+        LinkedList<Integer> list = new LinkedList<>(Arrays.asList(integerArr));
+        for (Integer integer : list) {
+            dfs(permutationArrList,integer + "", getListExpectN(list, integer));
+        }
+    }
+
+    private static void dfs(java.util.List<int[]> arrList,String str, LinkedList<Integer> list) {
+        if (list.size() == 0) {
+            System.out.println(str);
+            int[] intArr = stringArrToNumArr(str.split("->"));
+            arrList.add(intArr);
+            return;
+        }
+        for (Integer integer : list) {
+            dfs(arrList,str + "->" + integer, getListExpectN(list, integer));
+        }
+    }
+
+
+    private static int[] stringArrToNumArr(String[] strings){
+        int[] resArr = new int[strings.length];
+        int i=0;
+        for (String str:strings){
+            resArr[i++]=Integer.parseInt(str);
+        }
+        return resArr;
+    }
+
+    public static LinkedList<Integer> getListExpectN(LinkedList<Integer> list, Integer n) {
+        LinkedList<Integer> resList = new LinkedList<>();
+        for (Integer integer : list) {
+            if (!integer.equals(n)) {
+                resList.add(integer);
+            }
+        }
+        return resList;
+    }
+
+    public static  java.util.List<int[]> getPermutationIntByLength(int length){
+        java.util.List<int[]> list = new ArrayList<>();
+        permutationByList(list,length);
+        return list;
+    }
 }
