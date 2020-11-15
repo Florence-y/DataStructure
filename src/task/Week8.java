@@ -1,14 +1,12 @@
 package task;
 
-import implDataStruce.FlorenceQueue;
 import implDataStruce.FlorenceStack;
 import implDataStruce.TreeNode;
 
-import java.util.Arrays;
-import java.util.Stack;
+
 
 /**
- * @author Florence 
+ * @author Florence
  */
 public class Week8 {
     public static void main(String[] args) {
@@ -169,6 +167,8 @@ public class Week8 {
                 root.setRight(getTreeFromForeOrderAndMidOrder(foreOrder,i-midStart+startFore+1,endFore,midOrder,i+1,midEnd));
             }
         }
+
         return root;
     }
+
 }

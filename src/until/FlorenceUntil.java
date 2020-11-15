@@ -1,8 +1,10 @@
 package until;
 
 
+import implDataStruce.FlorenceQueue;
 import implDataStruce.List;
 import implDataStruce.Node;
+import implDataStruce.TreeNode;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -233,7 +235,7 @@ public class FlorenceUntil {
         //Math.log的底为e
         return Math.log(N)/Math.log(2);
     }
-    public boolean isPowerOfTwo(int n) {
+    public static boolean isPowerOfTwo(int n) {
         return n > 0 && (n & (n - 1)) == 0;
     }
 
@@ -295,5 +297,38 @@ public class FlorenceUntil {
         java.util.List<int[]> list = new ArrayList<>();
         permutationByList(list,length);
         return list;
+    }
+    public static <T> void showTree(TreeNode<T>[] treeNodes){
+        int length=treeNodes.length-1;
+        int rowCount= (int) (isPowerOfTwo(length)?log2(length):Math.ceil(log2(length)));
+        int bottomLength= (int) Math.pow(2,rowCount-1);
+        FlorenceQueue<TreeNode<T>> queue = new FlorenceQueue<>();
+        queue.enQueue(treeNodes[1]);
+        int count=1;
+        while (!queue.isEmpty()){
+            String blankAndData= getBlank(bottomLength/2-((count+count-1)/2));
+            for (int i=0;i<count&&!queue.isEmpty();i++){
+                blankAndData+=queue.deQueue().getData()+" ";
+                int index = (count + i) * 2;
+                //左节点入队列
+                if (index <=length){
+                    queue.enQueue(treeNodes[index]);
+                }
+                //右节点入队列
+                if (index+1<=length){
+                    queue.enQueue(treeNodes[index+1]);
+                }
+            }
+            //输出这一层的内容
+            System.out.println(blankAndData);
+            count*=2;
+        }
+    }
+    private static String getBlank(int length) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i=0;i<length;i++){
+            stringBuilder.append(" ");
+        }
+        return stringBuilder.toString();
     }
 }
