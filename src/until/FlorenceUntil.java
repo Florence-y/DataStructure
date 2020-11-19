@@ -2,7 +2,6 @@ package until;
 
 
 import implDataStruce.FlorenceQueue;
-import implDataStruce.List;
 import implDataStruce.Node;
 import implDataStruce.TreeNode;
 
@@ -10,9 +9,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
+
 /**
  * @author Florence
  */
@@ -330,5 +328,137 @@ public class FlorenceUntil {
             stringBuilder.append(" ");
         }
         return stringBuilder.toString();
+    }
+    /**
+     * 获取两点的最大距离
+     * @param root
+     * @return
+     */
+    public static int getTwoNodeMaxGap(TreeNode<Integer> root) {
+        int res = Integer.MIN_VALUE;
+        //初始化编码树
+        root.setData(-1);
+        initTree(root);
+        java.util.List<String> list = new ArrayList<>();
+        //统计出所有的路径
+        resGetTheEncodingStrList(list, root, "");
+        for (int i=1;i<list.size();i++){
+            int gap= getTwoNodeGap(list.get(i-1),list.get(i));
+            res=res>gap?res:gap;
+        }
+        return res;
+    }
+
+    public static int getTwoNodeMinGap(TreeNode<Integer> root){
+        int res = Integer.MAX_VALUE;
+        //初始化编码树
+        root.setData(-1);
+        initTree(root);
+        java.util.List<String> list = new ArrayList<>();
+        //统计出所有的路径
+        resGetTheEncodingStrList(list, root, "");
+        for (int i=1;i<list.size();i++){
+            int gap= getTwoNodeGap(list.get(i-1),list.get(i));
+            res=res<gap?res:gap;
+        }
+        return res;
+    }
+
+    /**
+     * 计算两点的距离
+     * @param s1 编码完的字符串1
+     * @param s2 编码完的字符串2
+     * @return
+     */
+    public static int getTwoNodeGap(String s1, String s2) {
+        int s1Length = s1.length();
+        int s2Length = s2.length();
+        if (s1Length>s2Length){
+            return getTwoNodeGap(s2,s1);
+        }
+        for (int i = 0; i< s1Length; i++){
+            if (s1.charAt(i)!=s2.charAt(i)){
+                return s1Length+s2Length-2*i+1;
+            }
+        }
+        if (s1Length == s2Length){
+            return 0;
+        }
+        else {
+            return s2Length-s1Length+1;
+        }
+    }
+
+    /**
+     * 递归获取编码字符串
+     * @param list
+     * @param root
+     * @param nowStr
+     */
+    private static void resGetTheEncodingStrList(List<String> list, TreeNode<Integer> root, String nowStr) {
+        if (root != null) {
+            nowStr += root.getData();
+            if (root.getRight() == null && root.getLeft() == null) {
+                list.add(nowStr);
+            }
+            resGetTheEncodingStrList(list, root.getLeft(), nowStr);
+            resGetTheEncodingStrList(list, root.getRight(), nowStr);
+        }
+    }
+    /**
+     * 递归获取编码字符串map，一个叶子节点对应的编码串
+     * @param root
+     * @param nowStr
+     */
+    public static void resGetTheEncodingStrMap(Map<TreeNode<Integer>, String> map, TreeNode<Integer> root, String nowStr) {
+        if (root != null) {
+            nowStr += root.getData();
+            if (root.getRight() == null && root.getLeft() == null) {
+                map.put(root,nowStr);
+            }
+            resGetTheEncodingStrMap(map, root.getLeft(), nowStr);
+            resGetTheEncodingStrMap(map, root.getRight(), nowStr);
+        }
+    }
+
+    /**
+     * 对树进行初始化编码
+     * @param root
+     */
+    private static void initTree(TreeNode<Integer> root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode<Integer> left = root.getLeft();
+        if (left != null) {
+            left.setData(0);
+            initTree(left);
+        }
+        TreeNode<Integer> right = root.getRight();
+        if (right != null) {
+            right.setData(1);
+            initTree(right);
+        }
+    }
+    public static int min(int a,int b){
+        return a>b?b:a;
+    }
+    public static int max(int a,int b){
+        return a>b?a:b;
+    }
+    /**
+     * 反转map键值对(一定要是双射)
+     * @param keyAndValue 键值对
+     * @param <K> 键具体类型
+     * @param <V> 值具体类型
+     * @return
+     */
+    public static <K,V> Map<V, K> inverseMap(Map<K,V> keyAndValue) {
+        Map<V,K> resMap=new HashMap<>(keyAndValue.size());
+        Set<Map.Entry<K, V>> entries = keyAndValue.entrySet();
+        for (Map.Entry<K,V> entry:entries){
+            resMap.put(entry.getValue(),entry.getKey());
+        }
+        return resMap;
     }
 }

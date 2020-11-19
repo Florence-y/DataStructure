@@ -5,6 +5,8 @@ import implDataStruce.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static until.FlorenceUntil.getTwoNodeMinGap;
+
 /**
  * @author Florence
  */
@@ -25,7 +27,7 @@ public class Week9 {
 //            System.out.println(isFixTwentyFivePoint(arr));
 //        }
         TreeNode<Integer> treeForCalculateTwentyFourPointFirstType = getTreeForCalculateTwentyFourPointFirstType(new int[]{1, 2, 3, 4});
-        getTwoNodeMaxGap(treeForCalculateTwentyFourPointFirstType);
+        System.out.println( getTwoNodeMinGap(treeForCalculateTwentyFourPointFirstType));
     }
 
     /**
@@ -256,7 +258,7 @@ public class Week9 {
             int gap= getTwoNodeGap(list.get(i-1),list.get(i));
             res=res>gap?res:gap;
         }
-        return 0;
+        return res;
     }
 
     /**
@@ -280,9 +282,8 @@ public class Week9 {
             return 0;
         }
         else {
-            return s2Length-s1Length-1;
+            return s2Length-s1Length+1;
         }
-
     }
 
     /**
