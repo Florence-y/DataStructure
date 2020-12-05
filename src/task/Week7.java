@@ -10,59 +10,16 @@ import java.util.*;
  * @author Florence
  */
 public class Week7 {
+    private static final boolean WASTE_ZOOM_WAY = true;
+    private static final boolean HARD_GET_SON_WAY = false;
     private static ArrayList<Double> poissonDistribute = new ArrayList<>();
     private static ArrayList<Double> exponentDistribute = new ArrayList<>();
     private static int MAX_POSSIBLE = 1000;
-    private static final boolean WASTE_ZOOM_WAY = true;
-    private static final boolean HARD_GET_SON_WAY = false;
 
     static {
         for (int i = 0; i < MAX_POSSIBLE; i++) {
             poissonDistribute.add(getPoissonNum(i));
             exponentDistribute.add(getExponent(i));
-        }
-    }
-
-
-    static class Consumer {
-        String consumerName;
-        long remindTime = 0;
-        long stayTime;
-
-        Consumer(long stay, String name) {
-            remindTime = stay;
-            consumerName = name;
-            stayTime = stay;
-        }
-
-        public long getRemindTime() {
-            return remindTime;
-        }
-
-        public void setRemindTime(long remindTime) {
-            this.remindTime = remindTime;
-        }
-
-        public String getName() {
-            return consumerName;
-        }
-
-        public void setName(String name) {
-            this.consumerName = name;
-        }
-
-        @Override
-        public String toString() {
-            return consumerName + "：服务时长" + stayTime + "小时";
-        }
-    }
-
-    static class TreeNodeLessZoom<T> {
-        T data;
-        int parent = 0;
-
-        TreeNodeLessZoom(int initParent) {
-            parent = initParent;
         }
     }
 
@@ -97,7 +54,7 @@ public class Week7 {
 //            list.remove(0);
 //            list.remove(1);
 //        }
-        showTree(buildBinaryTree(new Integer[]{0,1,2,3,4,5,6,7,8}));
+        showTree(buildBinaryTree(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8}));
     }
 
     /**
@@ -156,6 +113,7 @@ public class Week7 {
             }
         } while (!queue.isEmpty() && queue.size() <= 200);
     }
+
     public static Map<String, String> recognizeTheCLanguageCode(String CLanguageCode) {
         Map<String, String> resMap = new HashMap<>(20);
         List<String[]> list = new ArrayList<>();
@@ -194,32 +152,33 @@ public class Week7 {
     }
 
     public static int getSonNodeByArrWay(int curNodeIndex, String leftOrRight) {
-        int gap= "left".equals(leftOrRight)?0:1;
-        return curNodeIndex * 2+1;
+        int gap = "left".equals(leftOrRight) ? 0 : 1;
+        return curNodeIndex * 2 + 1;
     }
 
-    public static <T> int getParentNodeByClass(TreeNodeLessZoom<T> node){
+    public static <T> int getParentNodeByClass(TreeNodeLessZoom<T> node) {
         return node.parent;
     }
 
     /**
      * 用节省空间的方式来存储树，然后要获取他的子节点
+     *
      * @param node
      * @param treeNodeLessZooms
      * @param <T>
      * @return
      */
-    public static <T> List<Integer> getSonNodeByClass(TreeNodeLessZoom<T> node, TreeNodeLessZoom[] treeNodeLessZooms){
+    public static <T> List<Integer> getSonNodeByClass(TreeNodeLessZoom<T> node, TreeNodeLessZoom[] treeNodeLessZooms) {
         int selfIndex = -1;
         List<Integer> list = new LinkedList<>();
-        for (int i = 0; i< treeNodeLessZooms.length; i++){
-            if (node== treeNodeLessZooms[i]){
-                selfIndex=i;
+        for (int i = 0; i < treeNodeLessZooms.length; i++) {
+            if (node == treeNodeLessZooms[i]) {
+                selfIndex = i;
                 break;
             }
         }
-        for (int i = 1; i< treeNodeLessZooms.length; i++){
-            if (selfIndex== treeNodeLessZooms[i].parent){
+        for (int i = 1; i < treeNodeLessZooms.length; i++) {
+            if (selfIndex == treeNodeLessZooms[i].parent) {
                 list.add(i);
             }
         }
@@ -228,68 +187,68 @@ public class Week7 {
 
     public static <T> TreeNode<T>[] buildBinaryTree(T[] wantToBuildArr) throws Exception {
         LinkedList<TreeNode<T>> list = new LinkedList<>();
-        if (wantToBuildArr==null){
+        if (wantToBuildArr == null) {
             System.out.println("Arr is null");
             return null;
         }
-        if (wantToBuildArr.length==0){
+        if (wantToBuildArr.length == 0) {
             System.out.println("length is 0");
             return null;
         }
         FlorenceQueue<T> florenceQueue = new FlorenceQueue<>();
         florenceQueue.enQueue(wantToBuildArr[0]);
-        int count=1;
-        while(!florenceQueue.isEmpty()){
+        int count = 1;
+        while (!florenceQueue.isEmpty()) {
             //根据循环添加某一层的元素，记得最后一层可能不是满的
-            for (int i=0;i<count&&!florenceQueue.isEmpty();i++){
+            for (int i = 0; i < count && !florenceQueue.isEmpty(); i++) {
                 list.add(new TreeNode<>(florenceQueue.deQueue()));
             }
-            for (int i=count;i<count*2&&i<wantToBuildArr.length;i++){
+            for (int i = count; i < count * 2 && i < wantToBuildArr.length; i++) {
                 florenceQueue.enQueue(wantToBuildArr[i]);
             }
-            count*=2;
+            count *= 2;
         }
         return getResultBinaryTreeArr(list);
     }
 
     private static <T> TreeNode<T>[] getResultBinaryTreeArr(LinkedList<TreeNode<T>> list) {
-        TreeNode<T>[] treeNodes = new TreeNode[list.size()+1];
-        for (int i=1;i<treeNodes.length;i++){
-            treeNodes[i]=list.get(i-1);
+        TreeNode<T>[] treeNodes = new TreeNode[list.size() + 1];
+        for (int i = 1; i < treeNodes.length; i++) {
+            treeNodes[i] = list.get(i - 1);
         }
         return treeNodes;
     }
 
-    public static <T> void showTree(TreeNode<T>[] treeNodes){
-        int length=treeNodes.length-1;
-        int rowCount= (int) (isPowerOfTwo(length)?log2(length):Math.ceil(log2(length)));
-        int bottomLength= (int) Math.pow(2,rowCount-1);
+    public static <T> void showTree(TreeNode<T>[] treeNodes) {
+        int length = treeNodes.length - 1;
+        int rowCount = (int) (isPowerOfTwo(length) ? log2(length) : Math.ceil(log2(length)));
+        int bottomLength = (int) Math.pow(2, rowCount - 1);
         FlorenceQueue<TreeNode<T>> queue = new FlorenceQueue<>();
         queue.enQueue(treeNodes[1]);
-        int count=1;
-        while (!queue.isEmpty()){
-            String blankAndData= getBlank(bottomLength/2-((count+count-1)/2));
-            for (int i=0;i<count&&!queue.isEmpty();i++){
-                blankAndData+=queue.deQueue().getData()+" ";
+        int count = 1;
+        while (!queue.isEmpty()) {
+            String blankAndData = getBlank(bottomLength / 2 - ((count + count - 1) / 2));
+            for (int i = 0; i < count && !queue.isEmpty(); i++) {
+                blankAndData += queue.deQueue().getData() + " ";
                 int index = (count + i) * 2;
                 //左节点入队列
-                if (index <=length){
+                if (index <= length) {
                     queue.enQueue(treeNodes[index]);
                 }
                 //右节点入队列
-                if (index+1<=length){
-                    queue.enQueue(treeNodes[index+1]);
+                if (index + 1 <= length) {
+                    queue.enQueue(treeNodes[index + 1]);
                 }
             }
             //输出这一层的内容
             System.out.println(blankAndData);
-            count*=2;
+            count *= 2;
         }
     }
 
     private static String getBlank(int length) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i=0;i<length;i++){
+        for (int i = 0; i < length; i++) {
             stringBuilder.append(" ");
         }
         return stringBuilder.toString();
@@ -297,7 +256,7 @@ public class Week7 {
 
     public static double log2(double N) {
         //Math.log的底为e
-        return Math.log(N)/Math.log(2);
+        return Math.log(N) / Math.log(2);
     }
 
     /**
@@ -314,6 +273,7 @@ public class Week7 {
         }
         return y + poisson;
     }
+
     public static boolean isPowerOfTwo(int n) {
         return n > 0 && (n & (n - 1)) == 0;
     }
@@ -393,11 +353,53 @@ public class Week7 {
         return sum;
     }
 
-    private static <T> TreeNodeLessZoom<T>[] getTreeNodeArr(int length){
-        TreeNodeLessZoom<T>[] treeNodeLessZooms =new TreeNodeLessZoom[length+1];
-        for (int i=1;i<=length;i++){
-            treeNodeLessZooms[i]=new TreeNodeLessZoom<>(i/2);
+    private static <T> TreeNodeLessZoom<T>[] getTreeNodeArr(int length) {
+        TreeNodeLessZoom<T>[] treeNodeLessZooms = new TreeNodeLessZoom[length + 1];
+        for (int i = 1; i <= length; i++) {
+            treeNodeLessZooms[i] = new TreeNodeLessZoom<>(i / 2);
         }
         return treeNodeLessZooms;
+    }
+
+    static class Consumer {
+        String consumerName;
+        long remindTime = 0;
+        long stayTime;
+
+        Consumer(long stay, String name) {
+            remindTime = stay;
+            consumerName = name;
+            stayTime = stay;
+        }
+
+        public long getRemindTime() {
+            return remindTime;
+        }
+
+        public void setRemindTime(long remindTime) {
+            this.remindTime = remindTime;
+        }
+
+        public String getName() {
+            return consumerName;
+        }
+
+        public void setName(String name) {
+            this.consumerName = name;
+        }
+
+        @Override
+        public String toString() {
+            return consumerName + "：服务时长" + stayTime + "小时";
+        }
+    }
+
+    static class TreeNodeLessZoom<T> {
+        T data;
+        int parent = 0;
+
+        TreeNodeLessZoom(int initParent) {
+            parent = initParent;
+        }
     }
 }

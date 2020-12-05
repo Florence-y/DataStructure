@@ -11,15 +11,7 @@ import static until.FlorenceUntil.getTwoNodeMinGap;
  * @author Florence
  */
 public class Week9 {
-    static class ExpressAndValue {
-        String express = null;
-        Integer value = null;
-
-        ExpressAndValue(String express, Integer value) {
-            this.express = express;
-            this.value = value;
-        }
-    }
+    static char[] operator = {'+', '-', '*', '/'};
 
     public static void main(String[] args) {
 //        List<int[]> arrList =getPermutationIntByLength(4);
@@ -27,7 +19,7 @@ public class Week9 {
 //            System.out.println(isFixTwentyFivePoint(arr));
 //        }
         TreeNode<Integer> treeForCalculateTwentyFourPointFirstType = getTreeForCalculateTwentyFourPointFirstType(new int[]{1, 2, 3, 4});
-        System.out.println( getTwoNodeMinGap(treeForCalculateTwentyFourPointFirstType));
+        System.out.println(getTwoNodeMinGap(treeForCalculateTwentyFourPointFirstType));
     }
 
     /**
@@ -59,6 +51,7 @@ public class Week9 {
 
     /**
      * 获取高度
+     *
      * @param root
      * @param <T>
      * @return
@@ -102,8 +95,6 @@ public class Week9 {
         return list;
     }
 
-    static char[] operator = {'+', '-', '*', '/'};
-
     /**
      * 四个数字固定，计算全部运算符
      *
@@ -135,11 +126,11 @@ public class Week9 {
     /**
      * 获取一个表达式生成的树的值
      *
-     * @param root 树的根节点
+     * @param root      树的根节点
      * @param operator1 操作符1
      * @param operator2 操作符2
      * @param operator3 操作符3
-     * @param count 用到第几个操作符了
+     * @param count     用到第几个操作符了
      * @return
      */
     private static ExpressAndValue getExpressSum(TreeNode<Integer> root, char operator1, char operator2, char operator3, int count) {
@@ -167,6 +158,7 @@ public class Week9 {
 
     /**
      * 根据传进来的操作符字符串计算值（返回的是一个对象，包含当前表达式的值，对应的字符串）
+     *
      * @param expressSumLeft
      * @param expressSumRight
      * @param operator
@@ -194,8 +186,8 @@ public class Week9 {
 
     /**
      * 水平（a+b）+（c+d）
-     *      #
-     *    #   #
+     * #
+     * #   #
      * a   b  c  d
      *
      * @param provideNum
@@ -216,9 +208,9 @@ public class Week9 {
 
     /**
      * 第二种形态
-     *         #
-     *      #    d
-     *    #    c
+     * #
+     * #    d
+     * #    c
      * a   b
      *
      * @param provideNum
@@ -243,6 +235,7 @@ public class Week9 {
 
     /**
      * 获取两点的最大距离
+     *
      * @param root
      * @return
      */
@@ -254,15 +247,16 @@ public class Week9 {
         List<String> list = new ArrayList<>();
         //统计出所有的路径
         resGetTheEncodingStr(list, root, "");
-        for (int i=1;i<list.size();i++){
-            int gap= getTwoNodeGap(list.get(i-1),list.get(i));
-            res=res>gap?res:gap;
+        for (int i = 1; i < list.size(); i++) {
+            int gap = getTwoNodeGap(list.get(i - 1), list.get(i));
+            res = res > gap ? res : gap;
         }
         return res;
     }
 
     /**
      * 计算两点的距离
+     *
      * @param s1 编码完的字符串1
      * @param s2 编码完的字符串2
      * @return
@@ -270,24 +264,24 @@ public class Week9 {
     private static int getTwoNodeGap(String s1, String s2) {
         int s1Length = s1.length();
         int s2Length = s2.length();
-        if (s1Length>s2Length){
-            return getTwoNodeGap(s2,s1);
+        if (s1Length > s2Length) {
+            return getTwoNodeGap(s2, s1);
         }
-        for (int i = 0; i< s1Length; i++){
-            if (s1.charAt(i)!=s2.charAt(i)){
-                return s1Length+s2Length-2*i+1;
+        for (int i = 0; i < s1Length; i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                return s1Length + s2Length - 2 * i + 1;
             }
         }
-        if (s1Length == s2Length){
+        if (s1Length == s2Length) {
             return 0;
-        }
-        else {
-            return s2Length-s1Length+1;
+        } else {
+            return s2Length - s1Length + 1;
         }
     }
 
     /**
      * 递归获取编码字符串
+     *
      * @param list
      * @param root
      * @param nowStr
@@ -305,6 +299,7 @@ public class Week9 {
 
     /**
      * 对树进行初始化编码
+     *
      * @param root
      */
     private static void initTree(TreeNode<Integer> root) {
@@ -320,6 +315,16 @@ public class Week9 {
         if (right != null) {
             right.setData(1);
             initTree(right);
+        }
+    }
+
+    static class ExpressAndValue {
+        String express = null;
+        Integer value = null;
+
+        ExpressAndValue(String express, Integer value) {
+            this.express = express;
+            this.value = value;
         }
     }
 }

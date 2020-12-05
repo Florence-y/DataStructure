@@ -4,7 +4,6 @@ import implDataStruce.FlorenceStack;
 import implDataStruce.Node;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static until.FlorenceUntil.getPermutationIntByLength;
@@ -39,7 +38,7 @@ public class Week6 {
 //        System.out.println(calculator);
 //        permutationByList(4);
         List<int[]> permutationIntByLength = getPermutationIntByLength(4);
-        for (int[] arr:permutationIntByLength){
+        for (int[] arr : permutationIntByLength) {
             System.out.println(Arrays.toString(arr));
         }
     }
@@ -419,15 +418,15 @@ public class Week6 {
         operateStack.push('#');
         char[] toCharArray = wantToCalculateStr.toCharArray();
         char[][] advantageExp = getAdvantageExpArr();
-        boolean flag=true;
+        boolean flag = true;
         for (Character c : toCharArray) {
             if (Character.isDigit(c)) {
                 temp = temp * 10 + Integer.parseInt(String.valueOf(c));
             } else {
-                if (!c.equals('(')&&flag) {
+                if (!c.equals('(') && flag) {
                     valStack.push(temp);
                 }
-                flag=true;
+                flag = true;
                 temp = 0;
                 Character top = operateStack.top();
                 Character advantage = advantageExp[top][c];
@@ -446,7 +445,7 @@ public class Week6 {
                         operateStack.push(c);
                     } else {
                         operateStack.pop();
-                        flag=false;
+                        flag = false;
                     }
                 } else if (advantage.equals('=')) {
                     operateStack.pop();
