@@ -1,21 +1,21 @@
 package task;
-
 import implDataStruce.TreeNode;
-
 import java.util.Arrays;
-import java.util.TreeMap;
-
 import static until.FlorenceUntil.getFibonacciArr;
+import static until.FlorenceUntil.getNumbers;
 
 /**
  * @author Florence
  */
 public class Week12 {
     public static void main(String[] args) {
-        int[] arr = {7,8,9,5,1,3,4,3,5,2,1,1,1,1000};
+        int[] arr = getNumbers(10000);
         String string1 = Arrays.toString(arr);
         System.out.println("排序前："+string1);
+        long startTime = System.currentTimeMillis();
         shellSort(arr);
+        long endTime=System.currentTimeMillis();
+        System.out.println("耗时"+(endTime-startTime)+"ms");
         String string = Arrays.toString(arr);
         System.out.println("排序后："+string);
     }
@@ -32,13 +32,14 @@ public class Week12 {
             fixTheLostNode(root.getLeft());
             fixTheLostNode(root.getRight());
         }
-        //
+        //右节点为空
         else if (root.getLeft()!=null&&root.getRight()==null){
             Integer data =root.getLeft().getData()+1;
             TreeNode<Integer> rightNode=new TreeNode<>(data);
             root.setRight(rightNode);
             fixTheLostNode(root.getLeft());
         }
+        //左节点为空
         else if (root.getLeft()==null&&root.getRight()!=null){
             Integer data =root.getRight().getData()-1;
             TreeNode<Integer> leftNode=new TreeNode<>(data);

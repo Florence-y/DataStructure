@@ -4,12 +4,9 @@ package until;
 import implDataStruce.FlorenceQueue;
 import implDataStruce.Node;
 import implDataStruce.TreeNode;
-import sun.rmi.log.LogInputStream;
+import task.Week12;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -476,5 +473,31 @@ public class FlorenceUntil {
             second = temp;
         }
         return list.toArray(new Integer[list.size()]);
+    }
+    public static int[] getNumbers(int number) {
+        Scanner in;
+        try {
+            String path = Week12.class.getClassLoader().getResource("resource/datafile.txt").getPath();
+            in = new Scanner(new File(path));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("找不到datafile.txt");
+        }
+        String str = in.next();
+        //把datafile.txt中的数字按，分割成String 数组
+        String[] split = str.split(",");
+
+        int[] nums = new int[number];
+
+        //读取前number位数字
+        for(int i=0; i<number;i++) {
+            nums[i] = Integer.valueOf(split[i]);
+        }
+        return nums;
+    }
+
+    public static <T> void exchangeArrEle(T[] arr,int firstIndex,int secondIndex){
+        T temp=arr[firstIndex];
+        arr[firstIndex]=arr[secondIndex];
+        arr[secondIndex]=temp;
     }
 }
