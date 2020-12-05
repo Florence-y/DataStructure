@@ -4,6 +4,7 @@ package until;
 import implDataStruce.FlorenceQueue;
 import implDataStruce.Node;
 import implDataStruce.TreeNode;
+import sun.rmi.log.LogInputStream;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -460,5 +461,20 @@ public class FlorenceUntil {
             resMap.put(entry.getValue(),entry.getKey());
         }
         return resMap;
+    }
+
+    public static Integer[] getFibonacciArr(int n){
+        List<Integer> list = new LinkedList<>();
+        list.add(0);
+        list.add(1);
+        int first=0,second=1;
+        int temp;
+        while (first+second<=n) {
+            temp = first + second;
+            list.add(temp);
+            first = second;
+            second = temp;
+        }
+        return list.toArray(new Integer[list.size()]);
     }
 }
