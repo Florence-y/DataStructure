@@ -41,6 +41,10 @@ public class Week12 {
         }
     }
 
+    /**
+     * 补全左节点或者右节点
+     * @param root
+     */
     public void fixTheLostNode(TreeNode<Integer> root) {
         if (root == null) {
             return;
